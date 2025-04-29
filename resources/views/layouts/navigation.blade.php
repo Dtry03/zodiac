@@ -20,6 +20,10 @@
                     <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')">
                         {{ __('Gestionar Categorías') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('admin.gym_classes.index')" :active="request()->routeIs('admin.gym_classes.*')">
+                        {{ __('Gestionar Clases') }}
+                    </x-nav-link>
                     @endif
                 </div>
             </div>

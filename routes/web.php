@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GymClassController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,7 +26,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::resource('categories', CategoryController::class);
 
-    // Más adelante añadiremos aquí las rutas para gestionar clases, usuarios, etc.
+    Route::resource('gym_classes', GymClassController::class);
+
 
 });
 // --- Fin Rutas Administrador ---
