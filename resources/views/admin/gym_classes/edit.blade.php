@@ -49,6 +49,23 @@
                             <x-input-error :messages="$errors->get('duration_minutes')" class="mt-2" />
                         </div>
 
+                        {{-- Día de la Semana --}}
+                        <div>
+                            <x-input-label for="day_of_week" :value="__('Día de la Semana')" />
+                            <select name="day_of_week" id="day_of_week" required class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                                <option value="" disabled>-- Selecciona Día --</option>
+                                {{-- Usamos old() para mantener el valor si falla la validación, o el valor actual de la clase --}}
+                                <option value="1" {{ old('day_of_week', $gymClass->day_of_week) == '1' ? 'selected' : '' }}>Lunes</option>
+                                <option value="2" {{ old('day_of_week', $gymClass->day_of_week) == '2' ? 'selected' : '' }}>Martes</option>
+                                <option value="3" {{ old('day_of_week', $gymClass->day_of_week) == '3' ? 'selected' : '' }}>Miércoles</option>
+                                <option value="4" {{ old('day_of_week', $gymClass->day_of_week) == '4' ? 'selected' : '' }}>Jueves</option>
+                                <option value="5" {{ old('day_of_week', $gymClass->day_of_week) == '5' ? 'selected' : '' }}>Viernes</option>
+                                <option value="6" {{ old('day_of_week', $gymClass->day_of_week) == '6' ? 'selected' : '' }}>Sábado</option>
+                                <option value="7" {{ old('day_of_week', $gymClass->day_of_week) == '7' ? 'selected' : '' }}>Domingo</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('day_of_week')" class="mt-2" />
+                        </div>
+
                         {{-- Capacidad --}}
                         <div>
                             <x-input-label for="capacity" :value="__('Capacidad Máxima')" />

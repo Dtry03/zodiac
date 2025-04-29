@@ -32,6 +32,7 @@ class GymClass extends Model{
         'capacity',
         'id_categories',
         'id_instructor',
+        'day_of_week',
     ];
     
 

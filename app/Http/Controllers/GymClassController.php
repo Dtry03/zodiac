@@ -41,6 +41,7 @@ class GymClassController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'day_of_week' => 'required|integer|between:1,7',
             'id_categories' => 'required|exists:categories,id', 
             'id_instructor' => 'nullable|exists:users,id', 
             'start_time' => 'required|date_format:H:i', 
@@ -89,6 +90,7 @@ class GymClassController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'day_of_week' => 'required|integer|between:1,7',
             'id_categories' => 'required|exists:categories,id',
             'id_instructor' => 'nullable|exists:users,id',
             'start_time' => 'required|date_format:H:i',
