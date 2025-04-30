@@ -15,6 +15,13 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('schedule.index')" :active="request()->routeIs('schedule.index')">
+                        {{ __('Horario') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('schedule.today')" :active="request()->routeIs('schedule.today')">
+                        {{ __('Inscripciones') }}
+                    </x-nav-link>
 
                     @if(auth()->user()->role === 'admin')
                     <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')">

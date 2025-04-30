@@ -38,12 +38,21 @@
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                         Capacidad
                                     </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Día
+                                    </th>
                                     <th scope="col" class="relative px-6 py-3">
                                         <span class="sr-only">Acciones</span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                @php
+                                    $dayNames = [
+                                        1 => 'Lunes', 2 => 'Martes', 3 => 'Miércoles', 4 => 'Jueves',
+                                        5 => 'Viernes', 6 => 'Sábado', 7 => 'Domingo'
+                                    ];
+                                @endphp
                                 {{-- Iterar sobre la variable $gymClasses --}}
                                 @forelse ($gymClasses as $gymClass) {{-- Variable $gymClasses, item $gymClass --}}
                                     <tr>
@@ -58,6 +67,9 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                                             {{ $gymClass->capacity}} {{-- Propiedad duration_minutes --}}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                            {{ $dayNames[$gymClass->day_of_week] ?? 'N/D' }} {{-- Muestra nombre del día o N/D --}}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                                             
