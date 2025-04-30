@@ -137,4 +137,12 @@ class GymClassController extends Controller
                              ->with('error', 'Error inesperado al eliminar la clase.');
         }
     }
+
+    public function showSignups(GymClass $gymClass)
+    {
+        
+        $signups = $gymClass->signups()->with('user')->get();
+
+        return view('admin.gym_classes.signups', compact('gymClass', 'signups'));
+    }
 }

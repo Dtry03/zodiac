@@ -23,6 +23,14 @@
                         {{ __('Inscripciones') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('schedule.index')" :active="request()->routeIs('schedule.index')">
+                        {{ __('Horario') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('client.classes')" :active="request()->routeIs('client.classes')">
+                        {{ __('Mis Clases') }}
+                    </x-nav-link>
+
                     @if(auth()->user()->role === 'admin')
                     <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')">
                         {{ __('Gestionar Categorías') }}

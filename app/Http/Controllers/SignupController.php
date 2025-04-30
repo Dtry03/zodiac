@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\GymClass; // Modelo de Clase
-use App\Models\Signup;   // Modelo de Inscripción (Asegúrate que exista y tenga $fillable)
+use App\Models\Signup;   // Modelo de Inscripción
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // Para obtener el usuario autenticado
 use Illuminate\Support\Facades\Log;   // Para registrar errores
-use Illuminate\Database\QueryException; // Para errores de BBDD (ej. unique constraint)
+use Illuminate\Database\QueryException; // Para errores de BBDD
 use Exception; // Para capturar excepciones generales
+use Illuminate\Auth\Access\AuthorizationException; // Para errores de autorización
 
 class SignupController extends Controller
 {
@@ -72,9 +73,36 @@ class SignupController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(Signup $signup)
     {
-        // Lo implementaremos después
-        return redirect()->route('schedule.today')->with('info', 'Funcionalidad de anular no implementada todavía.');
+        try {
+        
+
+            if (Auth::id() !== $signup->id_user) {
+              
+                throw new AuthorizationException('No tienes permiso para anular esta inscripción.');
+              
+            }
+
+
+            // Intentar eliminar la categoría de la base de datos
+            $signup->delete();
+
+
+            // Redirigir a la lista con mensaje de éxito
+            return redirect()->route('client.classes')
+                             ->with('success', 'Inscripción anulada correctamente.');
+
+        
+        } catch (AuthorizationException $e) {
+             Log::warning('Intento no autorizado de anular inscripción: User ID ' . Auth::id() . ', Signup ID ' . $signup->id);
+             return redirect()->route('client.classes')->with('error', $e->getMessage());
+        } catch (Exception $e) {
+            // Capturar cualquier otro error inesperado
+            Log::error('Error inesperado al anular inscripción: Signup ID ' . $signup->id . ' - ' . $e->getMessage());
+            return redirect()->route('client.classes')
+                             ->with('error', 'Error inesperado al anular la inscripción.');
+        }
     }
 }

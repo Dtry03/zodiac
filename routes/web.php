@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GymClassController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SignupController;
+use App\Http\Controllers\ClientAreaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,7 +19,10 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/horario', [ScheduleController::class, 'index'])->name('schedule.index');
     Route::get('/inscripciones', [ScheduleController::class, 'todayClasses'])->name('schedule.today');
-    Route::post('/inscripciones/{gymClass}', [SignupController::class, 'store'])->name('inscripciones.store'); 
+    Route::post('/inscripciones/{gymClass}', [SignupController::class, 'store'])->name('inscripciones.store');
+    Route::delete('/inscripciones/{signup}', [SignupController::class, 'destroy'])->name('inscripciones.destroy');
+    Route::get('/gym_classes/{gymClass}/signups', [GymClassController::class, 'showSignups'])->name('gym_classes.signups');
+    Route::get('/mis-clases', [ClientAreaController::class, 'myClasses'])->name('client.classes');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
