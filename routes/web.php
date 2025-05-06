@@ -7,6 +7,9 @@ use App\Http\Controllers\GymClassController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\ClientAreaController;
+use App\Http\Controllers\DailyReportController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\SettingsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,14 +31,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-use App\Http\Controllers\CategoriaController; // Importante añadir esto al principio del archivo
+ // Importante añadir esto al principio del archivo
 
 // --- Rutas para el Administrador ---
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('categories', CategoryController::class);
-
     Route::resource('gym_classes', GymClassController::class);
+    Route::resource('users', AdminUserController::class)->except(['create', 'store', 'show' ]);
+    Route::get('/listas-dia', [DailyReportController::class, 'dailySignups'])->name('reports.daily_signups');
+    Route::get('/listas-dia/pdf', [DailyReportController::class, 'downloadDailySignupsPdf'])->name('reports.daily_signups.pdf');
+    Route::get('/gym_classes/{gymClass}/signups/pdf', [DailyReportController::class, 'downloadClassSignupsPdf'])->name('gym_classes.signups.pdf');
+    Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit'); 
+    Route::put('/settings', [SettingsController::class, 'update'])->name('settings.update'); 
 
 
 });

@@ -23,21 +23,30 @@
                         {{ __('Inscripciones') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('schedule.index')" :active="request()->routeIs('schedule.index')">
-                        {{ __('Horario') }}
-                    </x-nav-link>
-
                     <x-nav-link :href="route('client.classes')" :active="request()->routeIs('client.classes')">
                         {{ __('Mis Clases') }}
                     </x-nav-link>
 
                     @if(auth()->user()->role === 'admin')
+
+                    <x-nav-link :href="route('admin.reports.daily_signups')" :active="request()->routeIs('admin.reports.daily_signups')">
+                        {{ __('Listas') }}
+                    </x-nav-link>
+
                     <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')">
                         {{ __('Gestionar Categorías') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('admin.gym_classes.index')" :active="request()->routeIs('admin.gym_classes.*')">
                         {{ __('Gestionar Clases') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.gym_classes.*')">
+                        {{ __('Gestionar Usuarios') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('admin.settings.edit')" :active="request()->routeIs('admin.settings.edit')">
+                        {{ __('Personalización') }}
                     </x-nav-link>
                     @endif
                 </div>

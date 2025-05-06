@@ -77,21 +77,19 @@ class SignupController extends Controller
     public function destroy(Signup $signup)
     {
         try {
+
+            $redirectRoute = 'client.classes'; 
+            if (Auth::check() && Auth::user()->role === 'admin') {
         
-
-            if (Auth::id() !== $signup->id_user) {
-              
-                throw new AuthorizationException('No tienes permiso para anular esta inscripción.');
-              
+                $redirectRoute = 'admin.reports.daily_signups';
             }
-
 
             // Intentar eliminar la categoría de la base de datos
             $signup->delete();
 
 
             // Redirigir a la lista con mensaje de éxito
-            return redirect()->route('client.classes')
+            return redirect()->route($redirectRoute)
                              ->with('success', 'Inscripción anulada correctamente.');
 
         
