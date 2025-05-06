@@ -1,4 +1,20 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+@php
+    // Asegúrate que el namespace sea el correcto
+    $settings = app(App\Settings\AppearanceSettings::class);
+    $bgColor = $settings->app_color ?? '#4f46e5'; // Color de fondo
+
+    // --- Lógica para determinar el color del texto ---
+    $hex = ltrim($bgColor, '#');
+    if (strlen($hex) == 3) { $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2]; }
+    $r = hexdec(substr($hex, 0, 2));
+    $g = hexdec(substr($hex, 2, 2));
+    $b = hexdec(substr($hex, 4, 2));
+    $luminance = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+    // Definir el color de texto HEX
+    $textColorHex = $luminance < 128 ? '#ffffff' : '#374151'; // Blanco o Gris-700
+
+@endphp
+<nav x-data="{ open: false }"  style="--nav-bg-color: {{ $bgColor }}; --nav-text-color: {{ $textColorHex }}; background-color: var(--nav-bg-color); color: var(--nav-text-color);" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,7 +22,14 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        {{-- Comprobar si hay logo personalizado --}}
+                        @if ($settings->app_logo)
+                            {{-- Mostrar logo personalizado --}}
+                            <img src="{{ Storage::url($settings->app_logo) }}" alt="{{ config('app.name', 'Laravel') }} Logo" class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200">
+                        @else
+                            {{-- Mostrar logo por defecto si no hay personalizado --}}
+                            <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        @endif
                     </a>
                 </div>
 
