@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-400 leading-tight mx-auto text-center flex justify-center items-center h-20 pt-6">
             {{ __('Editar Clase') }}: {{ $gymClass->name }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="overflow-hidden shadow-sm sm:rounded-lg ">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     @if ($errors->any())
@@ -22,7 +22,7 @@
                     @endif
 
                     {{-- Formulario apunta a la ruta update con método PUT/PATCH --}}
-                    <form method="POST" action="{{ route('admin.gym_classes.update', $gymClass) }}" class="space-y-6">
+                    <form method="POST" action="{{ route('admin.gym_classes.update', $gymClass) }}" class="space-y-6 bg-table-bg-color">
                         @csrf
                         @method('PUT') {{-- O PATCH --}}
 

@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-400 leading-tight mx-auto text-center flex justify-center items-center h-20 pt-6">
             {{ __('Gestionar Usuarios') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class=" overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -27,11 +27,11 @@
                         <table class="min-w-full divide-y divide-custom-dark-gray bg-table-bg-color">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 dark:text-gray-300 uppercase tracking-wider">ID</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 dark:text-gray-300 uppercase tracking-wider">Nombre</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 dark:text-gray-300 uppercase tracking-wider">Email</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 dark:text-gray-300 uppercase tracking-wider">Rol</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 dark:text-gray-300 uppercase tracking-wider">Último Login</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400  uppercase tracking-wider">ID</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400  uppercase tracking-wider">Nombre</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400  uppercase tracking-wider">Email</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400  uppercase tracking-wider">Rol</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400  uppercase tracking-wider">Último Login</th>
                                     <th scope="col" class="relative px-6 py-3"><span class="sr-only">Acciones</span></th>
                                 </tr>
                             </thead>
@@ -51,7 +51,7 @@
                                                 {{ ucfirst($user->role) }} {{-- Pone la primera letra en mayúscula --}}
                                             </span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400 dark:text-gray-300">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400 ">
                                             {{ $user->last_login_at ? \Carbon\Carbon::parse($user->last_login_at)->diffForHumans() : 'Nunca' }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
