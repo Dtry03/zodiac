@@ -1,9 +1,29 @@
-{{-- Usa el componente de layout app.blade.php --}}
+@php
+    $settings = app(App\Settings\AppearanceSettings::class);
+    $bgColor = $settings->app_color ?? '#4f46e5';
+@endphp
+<style>
+         
+            :root {
+                --theme-color: {{ $bgColor }};
+         
+                --theme-ring-color: {{ $bgColor }}40; 
+            }
+
+            input:focus,select:focus {
+                border-color: var(--theme-color) !important; 
+                box-shadow: 0 0 0 2px var(--theme-ring-color) !important;
+   
+            }
+
+            option:hover{
+                background-color: var(--theme-color)!important ;
+            }
+</style>
     <x-app-layout>
         {{-- Contenido para el slot 'header' --}}
         <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{-- Título dinámico con el nombre de la categoría --}}
+            <h2 class="font-semibold text-xl text-gray-400 leading-tight mx-auto text-center flex justify-center items-center h-20 pt-6">
                 {{ __('Editar Categoría') }}: {{ $category->name }}
             </h2>
         </x-slot>
@@ -11,8 +31,8 @@
         {{-- Contenido principal --}}
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 p-6 text-gray-400 bg-table-bg-color">
 
                          {{-- Bloque para mostrar errores de validación (igual que en create) --}}
                         @if ($errors->any())
@@ -37,13 +57,13 @@
                             <div>
                                 <x-input-label for="name" :value="__('Nombre')" />
                                 {{-- Usa old() para mantener el valor si falla la validación, o el valor actual de la categoría --}}
-                                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $category->name)" required autofocus />
+                                <x-text-input id="name" class="block mt-1 w-full  border-gray-400 bg-table-bg-color" type="text" name="name" :value="old('name', $category->name)" required autofocus />
                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
 
                             {{-- Campo Icono (Subida de Archivo) --}}
                             <div>
-                                <x-input-label for="icon" :value="__('Nuevo Icono (Opcional)')" />
+                                <x-input-label class="block mt-1 w-full  border-gray-400 bg-table-bg-color" for="icon" :value="__('Nuevo Icono (Opcional)')" />
                                 {{-- Muestra el icono actual si existe --}}
                                 @if ($category->icon)
                                     <div class="mt-2 mb-2">
@@ -59,7 +79,7 @@
                             {{-- Campo Límite de Inscripciones --}}
                             <div>
                                 <x-input-label for="max_user_signups_per_period" :value="__('Límite Inscripciones por Periodo (opcional)')" />
-                                <x-text-input id="max_user_signups_per_period" class="block mt-1 w-full" type="number" name="max_user_signups_per_period" :value="old('max_user_signups_per_period', $category->max_user_signups_per_period)" min="1" />
+                                <x-text-input id="max_user_signups_per_period" class="block mt-1 w-full  border-gray-400 bg-table-bg-color" type="number" name="max_user_signups_per_period" :value="old('max_user_signups_per_period', $category->max_user_signups_per_period)" min="1" />
                                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Dejar vacío si no hay límite.</p>
                                 <x-input-error :messages="$errors->get('max_user_signups_per_period')" class="mt-2" />
                             </div>
