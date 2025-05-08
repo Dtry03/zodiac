@@ -1,14 +1,18 @@
+@php
+    $settings = app(App\Settings\AppearanceSettings::class);
+    $bgColor = $settings->app_color ?? '#4f46e5';
+@endphp
 <x-app-layout> {{-- O el layout que uses para clientes --}}
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-400 leading-tight mx-auto text-center flex justify-center items-center h-20 pt-6">
             {{-- Título mostrando el día efectivo --}}
             Clases para {{ $effectiveDayName }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-3">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-table-bg-color overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                      {{-- Mensajes de sesión (para éxito/error al apuntarse) --}}
@@ -34,17 +38,17 @@
                                 $currentSignupsCount = $class->signups->count();
                                 $isClassFull = $currentSignupsCount >= $class->capacity;
                             @endphp
-                            <li class="bg-gray-50 dark:bg-gray-700 p-4 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                            <li class="p-4 rounded-md shadow-sm border border-custom-dark-gray  flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                                 {{-- Detalles de la clase --}}
                                 <div class="flex-grow">
-                                    <p class="font-semibold text-lg text-indigo-700 dark:text-indigo-400">
+                                    <p class="font-semibold text-lg text-gray-400">
                                         {{ \Carbon\Carbon::parse($class->start_time)->format('H:i') }} - {{ \Carbon\Carbon::parse($class->start_time)->addMinutes($class->duration_minutes)->format('H:i') }}
                                     </p>
-                                    <p class="text-xl text-gray-800 dark:text-gray-200 font-medium">{{ $class->name }}</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ $class->category->name ?? 'Sin categoría' }}</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">Instructor: {{ $class->instructor->name ?? 'N/A' }}</p>
+                                    <p class="text-xl text-gray-400 dark:text-gray-200 font-medium">{{ $class->name }}</p>
+                                    <p class="text-sm text-gray-400 dark:text-gray-400">{{ $class->category->name ?? 'Sin categoría' }}</p>
+                                    <p class="text-sm text-gray-400 dark:text-gray-400">Instructor: {{ $class->instructor->name ?? 'N/A' }}</p>
                                     {{-- Mostrar plazas disponibles/ocupadas --}}
-                                    <p class="text-xs text-gray-500 dark:text-gray-300 mt-1">
+                                    <p class="text-xs text-gray-400 dark:text-gray-300 mt-1">
                                         Plazas: {{ $currentSignupsCount }} / {{ $class->capacity }}
                                     </p>
                                 </div>
@@ -67,7 +71,7 @@
                                             {{-- Si hay plazas y no está apuntado: Mostrar botón para apuntarse --}}
                                             <form action="{{ route('inscripciones.store', $class) }}" method="POST">
                                                 @csrf
-                                                <button type="submit" class="w-full md:w-auto inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                                                <button type="submit"  style="background-color: {{ $bgColor }};" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest">
                                                     Apuntarse
                                                 </button>
                                             </form>

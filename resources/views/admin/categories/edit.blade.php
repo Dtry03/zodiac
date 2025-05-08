@@ -57,7 +57,7 @@
                             <div>
                                 <x-input-label for="name" :value="__('Nombre')" />
                                 {{-- Usa old() para mantener el valor si falla la validación, o el valor actual de la categoría --}}
-                                <x-text-input id="name" class="block mt-1 w-full  border-gray-400 bg-table-bg-color" type="text" name="name" :value="old('name', $category->name)" required autofocus />
+                                <x-text-input id="name" class="block mt-1 w-full  border-gray-400 bg-table-bg-color text-gray-400" type="text" name="name" :value="old('name', $category->name)" required autofocus />
                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
 
@@ -68,27 +68,27 @@
                                 @if ($category->icon)
                                     <div class="mt-2 mb-2">
                                         <img src="{{ Storage::url($category->icon) }}" alt="Icono actual" class="h-16 w-16 object-cover rounded">
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Icono actual. Sube uno nuevo para reemplazarlo.</p>
+                                        <p class="text-xs text-gray-400 dark:text-gray-400 mt-1">Icono actual. Sube uno nuevo para reemplazarlo.</p>
                                     </div>
                                 @endif
-                                <input id="icon" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 mt-1" type="file" name="icon" accept="image/*">
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG, JPG, GIF, SVG (MAX. 2MB).</p>
+                                <input id="icon" class="block w-full text-sm text-gray-400 border border-gray-300 rounded-lg cursor-pointer block mt-1 w-full  border-gray-400 bg-table-bg-color focus:outline-none  mt-1" type="file" name="icon" accept="image/*">
+                                <p class="mt-1 text-sm text-gray-400 dark:text-gray-300" id="file_input_help">PNG, JPG, GIF, SVG (MAX. 2MB).</p>
                                 <x-input-error :messages="$errors->get('icon')" class="mt-2" />
                             </div>
 
                             {{-- Campo Límite de Inscripciones --}}
                             <div>
                                 <x-input-label for="max_user_signups_per_period" :value="__('Límite Inscripciones por Periodo (opcional)')" />
-                                <x-text-input id="max_user_signups_per_period" class="block mt-1 w-full  border-gray-400 bg-table-bg-color" type="number" name="max_user_signups_per_period" :value="old('max_user_signups_per_period', $category->max_user_signups_per_period)" min="1" />
-                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Dejar vacío si no hay límite.</p>
+                                <x-text-input id="max_user_signups_per_period" class="block mt-1 w-full  border-gray-400 bg-table-bg-color text-gray-400" type="number" name="max_user_signups_per_period" :value="old('max_user_signups_per_period', $category->max_user_signups_per_period)" min="1" />
+                                <p class="text-sm text-gray-400 dark:text-gray-400 mt-1">Dejar vacío si no hay límite.</p>
                                 <x-input-error :messages="$errors->get('max_user_signups_per_period')" class="mt-2" />
                             </div>
 
                             {{-- Botones de Acción --}}
                             <div class="flex items-center gap-4 mt-6">
-                                <x-primary-button>{{ __('Actualizar Categoría') }}</x-primary-button>
+                                <button style="background-color: {{ $bgColor }};" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest">{{ __('Actualizar Categoría') }}</button>
 
-                                <a href="{{ route('admin.categories.index') }}" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+                                <a href="{{ route('admin.categories.index') }}" class="text-sm text-gray-400  hover:text-gray-300">
                                     {{ __('Cancelar') }}
                                 </a>
                             </div>

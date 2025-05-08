@@ -103,7 +103,7 @@
 
                         {{-- Botones de Acción --}}
                         <div class="flex items-center gap-4 mt-6">
-                            <x-primary-button style="background-color: {{ $bgColor }};">{{ __('Actualizar Usuario') }}</x-primary-button>
+                            <button style="background-color: {{ $bgColor }};" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest">{{ __('Actualizar Usuario') }}</button>
 
                             <a href="{{ route('admin.users.index') }}" class="text-sm text-gray-400  hover:text-gray-300">
                                 {{ __('Cancelar') }}

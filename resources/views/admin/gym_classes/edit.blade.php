@@ -129,7 +129,7 @@
 
                         {{-- Botones --}}
                         <div class="flex items-center gap-4 mt-6">
-                            <x-primary-button style="background-color: {{ $bgColor }};">{{ __('Actualizar Clase') }}</x-primary-button>
+                            <button style="background-color: {{ $bgColor }};" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest">{{ __('Actualizar Clase') }}</button>
                             <a href="{{ route('admin.gym_classes.index') }}" class="text-sm text-gray-400  hover:text-gray-300">
                                 {{ __('Cancelar') }}
                             </a>

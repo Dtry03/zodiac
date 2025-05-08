@@ -1,14 +1,18 @@
+@php
+    $settings = app(App\Settings\AppearanceSettings::class);
+    $bgColor = $settings->app_color ?? '#4f46e5';
+@endphp
 <x-app-layout> {{-- O el layout que uses para clientes --}}
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-400 leading-tight mx-auto text-center flex justify-center items-center h-20 pt-6">
             {{ __('Mis Clases Inscritas') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-3">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="bg-table-bg-color overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-400 ">
 
                      {{-- Mensajes de sesión (para éxito/error al anular) --}}
                     @if (session('success'))
@@ -26,9 +30,7 @@
                             {{ session('info') }}
                         </div>
                     @endif
-
-                    {{-- Lista vertical de clases inscritas --}}
-                    <h3 class="text-lg font-medium mb-4">Próximas Clases</h3>
+            
                     <ul class="space-y-4">
                         {{-- Iterar sobre las inscripciones ($userSignups) pasadas desde el controlador --}}
                         {{-- Cada $signup contiene la información de la clase en $signup->gymClass --}}
@@ -38,22 +40,22 @@
 
                             {{-- Solo mostrar si la clase existe (por si acaso) --}}
                             @if($class)
-                                <li class="bg-blue-50 dark:bg-blue-900/50 p-4 rounded-md shadow-sm border border-blue-200 dark:border-blue-800 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                                <li class=" p-4 rounded-md shadow-sm border border-custom-dark-gray flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                                     {{-- Detalles de la clase --}}
                                     <div class="flex-grow">
                                         {{-- Mostramos el día de la semana --}}
                                         @php
                                             $dayNames = [1 => 'Lunes', 2 => 'Martes', 3 => 'Miércoles', 4 => 'Jueves', 5 => 'Viernes', 6 => 'Sábado', 7 => 'Domingo'];
                                         @endphp
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                                        <p class="text-sm text-gray-400  font-medium">
                                             {{ $dayNames[$class->day_of_week] ?? 'Día N/D' }}
                                         </p>
-                                        <p class="font-semibold text-lg text-indigo-700 dark:text-indigo-400">
+                                        <p class="font-semibold text-lg text-gray-400">
                                             {{ \Carbon\Carbon::parse($class->start_time)->format('H:i') }} - {{ \Carbon\Carbon::parse($class->start_time)->addMinutes($class->duration_minutes)->format('H:i') }}
                                         </p>
-                                        <p class="text-xl text-gray-800 dark:text-gray-200 font-medium">{{ $class->name }}</p>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400">{{ $class->category->name ?? 'Sin categoría' }}</p>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400">Instructor: {{ $class->instructor->name ?? 'N/A' }}</p>
+                                        <p class="text-xl text-gray-400 font-medium">{{ $class->name }}</p>
+                                        <p class="text-sm text-gray-400">{{ $class->category->name ?? 'Sin categoría' }}</p>
+                                        <p class="text-sm text-gray-400">Instructor: {{ $class->instructor->name ?? 'N/A' }}</p>
                                     </div>
                                     {{-- Botón/Formulario para Anular Inscripción --}}
                                     <div class="flex-shrink-0 w-full md:w-auto">
@@ -67,17 +69,15 @@
                                                     {{-- @if(\Carbon\Carbon::parse($class->start_time)->isPast()) disabled @endif --}} >
                                                 Anular Inscripción
                                             </button>
-                                            {{-- Nota: La lógica para deshabilitar el botón si la clase ya pasó o está muy cerca
-                                                 puede necesitar ser más robusta (considerar fecha completa, no solo hora) --}}
                                         </form>
                                     </div>
                                 </li>
                             @endif
                         @empty
                             {{-- Mensaje si no está inscrito a ninguna clase --}}
-                            <li class="text-center py-8 text-gray-500 dark:text-gray-400">
+                            <li class="text-center py-8 text-gray-400">
                                 Aún no te has apuntado a ninguna clase.
-                                <a href="{{ route('schedule.today') }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">Ver clases de hoy</a>
+                                <a href="{{ route('schedule.today') }}" style="color:{{}};">Ver clases de hoy</a>
                             </li>
                         @endforelse
                     </ul>
