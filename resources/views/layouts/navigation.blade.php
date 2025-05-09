@@ -14,10 +14,10 @@
     $textColorHex = $luminance < 128 ? '#ffffff' : '#374151'; // Blanco o Gris-700
 
 @endphp
-<nav x-data="{ open: false }"  style="--nav-bg-color: {{ $bgColor }}; --nav-text-color: {{ $textColorHex }}; background-color: var(--nav-bg-color); color: var(--nav-text-color);">
+<nav x-data="{ open: false }"  style="--nav-bg-color: {{ $bgColor }}; --nav-text-color: {{ $textColorHex }}; background-color: var(--nav-bg-color); color: var(--nav-text-color);" class="sticky top-0 z-50">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+    <div class=" mx-auto px-4 sm:px-6 lg:px-8">
+        <div class=" h-20">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
@@ -25,7 +25,7 @@
                         {{-- Comprobar si hay logo personalizado --}}
                         @if ($settings->app_logo)
                             {{-- Mostrar logo personalizado --}}
-                            <img src="{{ Storage::url($settings->app_logo) }}" alt="{{ config('app.name', 'Laravel') }} Logo" class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200">
+                            <img src="{{ Storage::url($settings->app_logo) }}" alt="{{ config('app.name', 'Laravel') }} Logo" class="block h-9 h-24  w-24 object-cover text-gray-800 dark:text-gray-200">
                         @else
                             {{-- Mostrar logo por defecto si no hay personalizado --}}
                             <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
@@ -33,47 +33,7 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('schedule.index')" :active="request()->routeIs('schedule.index')">
-                        {{ __('Horario') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('schedule.today')" :active="request()->routeIs('schedule.today')">
-                        {{ __('Inscripciones') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('client.classes')" :active="request()->routeIs('client.classes')">
-                        {{ __('Mis Clases') }}
-                    </x-nav-link>
-
-                    @if(auth()->user()->role === 'admin')
-
-                    <x-nav-link :href="route('admin.reports.daily_signups')" :active="request()->routeIs('admin.reports.daily_signups')">
-                        {{ __('Listas') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')">
-                        {{ __('Gestionar Categorías') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('admin.gym_classes.index')" :active="request()->routeIs('admin.gym_classes.*')">
-                        {{ __('Gestionar Clases') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.gym_classes.*')">
-                        {{ __('Gestionar Usuarios') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('admin.settings.edit')" :active="request()->routeIs('admin.settings.edit')">
-                        {{ __('Personalización') }}
-                    </x-nav-link>
-                    @endif
-                </div>
-            </div>
+               
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">

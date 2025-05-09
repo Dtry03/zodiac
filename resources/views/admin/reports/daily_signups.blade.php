@@ -93,7 +93,7 @@
                 </div>
             @empty
                 {{-- Mensaje si no hay clases programadas para el día efectivo --}}
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-table-bg-color overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-400 text-center">
                         No hay clases programadas para {{ $effectiveDayName }}.
                     </div>
