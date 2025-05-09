@@ -1,14 +1,18 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Personalización de la Aplicación') }}
-        </h2>
-    </x-slot>
+@php
+    $settings = app(App\Settings\AppearanceSettings::class);
+    $bgColor = $settings->app_color ?? '#4f46e5';
+@endphp
+<section >
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+    <header>
+        <h2 class="text-lg font-medium text-gray-100">
+            {{ __('Personalizar aplicación') }}
+        </h2>
+    </header>
+   <div>
+        <div>
+            <div class=" overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="text-gray-100">
 
                     {{-- Mensajes de sesión --}}
                     @if (session('success'))
@@ -41,17 +45,11 @@
 
                         {{-- Campo Logo --}}
                         <div>
-                            <x-input-label for="app_logo" :value="__('Logotipo de la Aplicación')" />
+                            <x-input-label  for="app_logo" :value="__('Logotipo de la Aplicación')" />
                             {{-- Mostrar logo actual si existe --}}
                             {{-- Necesitaremos pasar $currentLogo desde el controlador --}}
-                            {{-- @if(isset($currentLogo) && $currentLogo)
-                                <div class="mt-2 mb-2">
-                                    <img src="{{ Storage::url($currentLogo) }}" alt="Logo actual" class="h-16 object-contain">
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Logo actual. Sube uno nuevo para reemplazarlo.</p>
-                                </div>
-                            @endif --}}
-                             <input id="app_logo" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 mt-1" type="file" name="app_logo" accept="image/png, image/jpeg, image/svg+xml">
-                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG, JPG, SVG (Recomendado: SVG o PNG transparente).</p>
+                             <input id="app_logo" class="mt-1 block w-full" type="file" name="app_logo" accept="image/png, image/jpeg, image/svg+xml">
+                             <p class="mt-1 text-sm text-gray-400" id="file_input_help">PNG, JPG, SVG (Recomendado: SVG o PNG transparente).</p>
                              <x-input-error :messages="$errors->get('app_logo')" class="mt-2" />
                         </div>
 
@@ -63,14 +61,14 @@
                                    class="mt-1 block p-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600"
                                    {{-- Necesitaremos pasar $currentColor desde el controlador --}}
                                    value="{{ old('app_color', $currentColor ?? '#4f46e5') }}"> {{-- Valor por defecto Indigo --}}
-                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Selecciona el color principal para la interfaz.</p>
+                            <p class="mt-1 text-sm text-gray-400">Selecciona el color principal para la interfaz.</p>
                             <x-input-error :messages="$errors->get('app_color')" class="mt-2" />
                         </div>
 
 
                         {{-- Botones de Acción --}}
                         <div class="flex items-center gap-4 mt-6">
-                            <x-primary-button>{{ __('Guardar Cambios') }}</x-primary-button>
+                            <button style="background-color: {{ $bgColor }};" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest">{{ __('Actualizar') }}</button>
                         </div>
                     </form>
 
@@ -78,4 +76,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</section>

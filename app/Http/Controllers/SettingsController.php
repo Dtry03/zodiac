@@ -67,7 +67,7 @@ class SettingsController extends Controller
              $settings->save(); // <-- DESCOMENTADO
  
              // 5. Redirigir de vuelta al formulario con mensaje de éxito
-             return redirect()->route('admin.settings.edit') // <-- DESCOMENTADO
+             return redirect()->route('profile.edit') // <-- DESCOMENTADO
                               ->with('success', '¡Configuración actualizada correctamente!');
         } catch (ValidationException $e) {
             // Si la validación falla, redirige automáticamente con errores
