@@ -1,3 +1,25 @@
+@php
+    $settings = app(App\Settings\AppearanceSettings::class);
+    $bgColor = $settings->app_color ?? '#4f46e5';
+@endphp
+<style>
+         
+            :root {
+                --theme-color: {{ $bgColor }};
+         
+                --theme-ring-color: {{ $bgColor }}40; 
+            }
+
+            input:focus,select:focus {
+                border-color: var(--theme-color) !important; 
+                box-shadow: 0 0 0 2px var(--theme-ring-color) !important;
+   
+            }
+
+            option:hover{
+                background-color: var(--theme-color)!important ;
+            }
+</style>
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
@@ -5,28 +27,28 @@
         <!-- Username -->
         <div>
             <x-input-label for="username" :value="__('Usuario')" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="name" />
+            <x-text-input id="username" class="block mt-1 w-full  border-gray-400 bg-table-bg-color text-gray-400" type="text" name="username" :value="old('username')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full  border-gray-400 bg-table-bg-color text-gray-400" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Nombre')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-text-input id="name" class="block mt-1 w-full  border-gray-400 bg-table-bg-color text-gray-400" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <!-- Last Name -->
         <div>
             <x-input-label for="last_name" :value="__('Apellidos')" />
-            <x-text-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required autofocus autocomplete="last name" />
+            <x-text-input id="last_name" class="block mt-1 w-full  border-gray-400 bg-table-bg-color text-gray-400" type="text" name="last_name" :value="old('last_name')" required autofocus autocomplete="last name" />
             <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
         </div>
 
@@ -34,7 +56,7 @@
         <div class="mt-4">
             <x-input-label for="password" :value="__('Contraseña')" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
+            <x-text-input id="password" class="block mt-1 w-full  border-gray-400 bg-table-bg-color text-gray-400"
                             type="password"
                             name="password"
                             required autocomplete="new-password" />
@@ -46,7 +68,7 @@
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirmar Contraseña')" />
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
+            <x-text-input id="password_confirmation" class="block mt-1 w-full  border-gray-400 bg-table-bg-color text-gray-400"
                             type="password"
                             name="password_confirmation" required autocomplete="new-password" />
 
@@ -54,13 +76,13 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
+            <a class="underline text-sm text-gray-400 hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
                 {{ __('¿Ya tienes cuenta?') }}
             </a>
 
-            <x-primary-button class="ms-4">
+            <button style="background-color: {{ $bgColor }};" class="ms-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest">
                 {{ __('Registrar') }}
-            </x-primary-button>
+            </button>
         </div>
     </form>
 </x-guest-layout>
