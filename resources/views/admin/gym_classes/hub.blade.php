@@ -13,7 +13,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class=" overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-6 ">
+                        <div class="grid sm:grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-6 ">
 
                             {{-- Botón para Listas del Día (Inscritos) --}}
                             <a href="{{ route('admin.reports.daily_signups') }}"  style="background-color: {{ $bgColor }};"
