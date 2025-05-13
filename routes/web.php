@@ -12,7 +12,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\SettingsController;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
