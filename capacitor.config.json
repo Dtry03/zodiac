@@ -1,0 +1,15 @@
+{
+  "appId": "com.zodiacgym.app",
+  "appName": "Zodiac Gym App",
+  "webDir": "public",
+  "server": {
+    "url": "http://159.223.227.22",
+    "cleartext": true 
+  },
+
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0 
+    }
+  }
+}
