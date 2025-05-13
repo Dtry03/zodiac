@@ -41,6 +41,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('users', AdminUserController::class)->except(['create', 'store', 'show' ]);
     Route::get('/listas-dia', [DailyReportController::class, 'dailySignups'])->name('reports.daily_signups');
     Route::get('/listas-dia/pdf', [DailyReportController::class, 'downloadDailySignupsPdf'])->name('reports.daily_signups.pdf');
+    Route::get('/clases-hub', [GymClassController::class, 'classesHub'])->name('gym_classes.hub');
     Route::get('/gym_classes/{gymClass}/signups/pdf', [DailyReportController::class, 'downloadClassSignupsPdf'])->name('gym_classes.signups.pdf');
     Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit'); 
     Route::put('/settings', [SettingsController::class, 'update'])->name('settings.update'); 

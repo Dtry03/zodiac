@@ -145,4 +145,10 @@ class GymClassController extends Controller
 
         return view('admin.gym_classes.signups', compact('gymClass', 'signups'));
     }
+
+        public function classesHub()
+    {
+      
+        return view('admin.gym_classes.hub');
+    }
 }

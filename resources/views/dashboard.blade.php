@@ -32,7 +32,7 @@
     <div class="flex items-center justify-center min-h-[calc(100vh-8rem)] w-screen">
         <div class="md:flex-col  lg:flex lg:flex-row justify-center items-center">
             <div class="px-20 py-5 text-center">
-                <a href="{{ route('admin.gym_classes.index') }}"><i  style="color: {{ $bgColor }};" class="text-8xl fa-solid fa-dumbbell py-4"></i></a>
+                <a href="{{ route('admin.gym_classes.hub') }}"><i  style="color: {{ $bgColor }};" class="text-8xl fa-solid fa-dumbbell py-4"></i></a>
                 <span class="block text-2xl font-medium text-gray-100">Clases</span>
             </div>
             <div class="px-20 py-5 text-center">
