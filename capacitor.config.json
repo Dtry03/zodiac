@@ -4,12 +4,11 @@
   "webDir": "public",
   "server": {
     "url": "http://159.223.227.22",
-    "cleartext": true 
+    "cleartext": true
   },
-
   "plugins": {
     "SplashScreen": {
-      "launchShowDuration": 0 
+      "launchShowDuration": 0
     }
   }
 }
