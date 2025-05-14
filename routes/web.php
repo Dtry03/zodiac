@@ -10,6 +10,7 @@ use App\Http\Controllers\ClientAreaController;
 use App\Http\Controllers\DailyReportController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\TenantRegistrationController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -18,6 +19,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/registrar-gimnasio', [TenantRegistrationController::class, 'create'])->name('tenant.register.form');
+Route::post('/registrar-gimnasio', [TenantRegistrationController::class, 'store'])->name('tenant.register.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/horario', [ScheduleController::class, 'index'])->name('schedule.index');

@@ -61,9 +61,6 @@ class User extends Authenticatable
      protected static function booted(): void
     {
        
-        static::addGlobalScope(new TenantScope);
-
-
         static::creating(function ($user) {
 
             if (is_null($user->tenant_id) && Auth::check() && Auth::user()->tenant_id) {
