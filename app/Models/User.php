@@ -6,6 +6,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Scopes\TenantScope;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth; 
 
 class User extends Authenticatable
 {
@@ -29,6 +32,7 @@ class User extends Authenticatable
         'role',
         'last_login_at',
         'remember_token',
+        'tenant_id'
     ];
 
     /**
@@ -52,5 +56,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+     protected static function booted(): void
+    {
+       
+        static::addGlobalScope(new TenantScope);
+
+
+        static::creating(function ($user) {
+
+            if (is_null($user->tenant_id) && Auth::check() && Auth::user()->tenant_id) {
+                $user->tenant_id = Auth::user()->tenant_id;
+            }
+
+        });
+    }
+
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(Tenant::class, 'tenant_id');
     }
 }

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany; 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Scopes\TenantScope;
+use Illuminate\Support\Facades\Auth;
+
 
 class GymClass extends Model{
     use HasFactory;
@@ -34,8 +37,21 @@ class GymClass extends Model{
         'id_categories',
         'id_instructor',
         'day_of_week',
+        'tenant_id',  
     ];
     
+    
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new TenantScope);
+
+        static::creating(function ($gymClass) {
+  
+            if (is_null($gymClass->tenant_id) && Auth::check() && Auth::user()->tenant_id) {
+                $gymClass->tenant_id = Auth::user()->tenant_id;
+            }
+        });
+    }
 
     
     public function category(): BelongsTo{
