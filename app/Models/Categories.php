@@ -46,8 +46,8 @@ class Categories extends Model
         return $this->belongsTo(Tenant::class, 'tenant_id');
     }
 
-    // public function gymClasses()
-    // {
-    //     return $this->hasMany(GymClass::class, 'id_categoria');
-    // }
+    public function gymClasses()
+     {
+         return $this->hasMany(GymClass::class, 'id_categories');
+     }
 }
