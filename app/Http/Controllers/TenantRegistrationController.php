@@ -39,6 +39,7 @@ class TenantRegistrationController extends Controller
                 'admin_password.required' => 'La contraseña es obligatoria.',
                 'admin_password.confirmed' => 'La confirmación de contraseña no coincide.',
             ]);
+                     
         } catch (ValidationException $e) {
             Log::warning('Validación fallida en registro de tenant: ', $e->errors());
             return back()->withErrors($e->errors())->withInput();
@@ -54,6 +55,8 @@ class TenantRegistrationController extends Controller
 
             ]);
 
+             
+
             
             $adminUser = User::create([
                 'name' => $validatedData['admin_name'],
@@ -65,7 +68,6 @@ class TenantRegistrationController extends Controller
                 'active' => true, 
               
             ]);
-
             DB::commit();
 
          

@@ -11,6 +11,7 @@ use App\Http\Controllers\DailyReportController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TenantRegistrationController;
+use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/subscription/checkout/{tenant}', [SubscriptionController::class, 'showCheckout'])->name('subscription.checkout.show');
 });
 
  // Importante añadir esto al principio del archivo

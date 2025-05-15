@@ -34,19 +34,6 @@
                 <x-input-error :messages="$errors->get('gym_name')" class="mt-2" />
             </div>
 
-            {{-- Aquí podrías añadir más campos para el tenant si los necesitas, ej: subdominio, teléfono del gym, etc. --}}
-            {{-- Por ejemplo, si quieres que elijan un subdominio:
-            <div class="mt-4">
-                <x-input-label for="subdomain" :value="__('Subdominio (ej. mi-gimnasio)')" />
-                <div class="flex items-center">
-                    <x-text-input id="subdomain" class="block mt-1 w-full rounded-r-none" type="text" name="subdomain" :value="old('subdomain')" required />
-                    <span class="inline-flex items-center px-3 mt-1 text-sm text-gray-500 border border-l-0 border-gray-300 rounded-r-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 h-[42px]">
-                        .{{ config('app.url_base_tenant', 'tuapp.com') }}
-                    </span>
-                </div>
-                <x-input-error :messages="$errors->get('subdomain')" class="mt-2" />
-            </div>
-            --}}
 
         </fieldset>
 
