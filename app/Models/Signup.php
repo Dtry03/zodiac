@@ -49,7 +49,7 @@ class Signup extends Model
      * Get the class that the signup belongs to.
      * Relación opcional pero útil.
      */
-    public function gymClass(): BelongsTo // O class() si tu modelo es GymClass
+    public function gymClass(): BelongsTo
     {
         // Asegúrate que el modelo de clase se llame GymClass o ajústalo
         // y que la clave foránea sea id_class

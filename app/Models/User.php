@@ -74,4 +74,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Tenant::class, 'tenant_id');
     }
+
+    public function signups()
+{
+    return $this->hasMany(Signup::class, 'id_user');
+}
 }
