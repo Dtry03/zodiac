@@ -19,16 +19,6 @@ class SubscriptionController extends Controller
     {
         $user = Auth::user();
 
-        
-        if (!$user || $user->tenant_id !== $tenant->id || $user->role !== 'admin') {
-            return redirect()->route('dashboard')->with('error', 'No tienes permiso para acceder a esta página de suscripción.');
-        }
-
-        if ($tenant->subscribed('default') && $tenant->subscription('default')->active()) {
-            return redirect()->route('dashboard')
-                             ->with('info', 'Tu gimnasio ya tiene una suscripción activa.');
-        }
-
         return view('subscription.checkout', compact('tenant'));
     }
 
