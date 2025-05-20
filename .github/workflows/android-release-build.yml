@@ -1,0 +1,66 @@
+name: Build Android Release AAB
+
+on:
+  push:
+    branches:
+      - main # Se dispara cuando haces push a la rama 'main'
+      # O puedes usar tags:
+      # tags:
+      #   - 'v*' # Se dispara cuando creas un tag que empieza con 'v' (ej. v1.0.0)
+  workflow_dispatch: # Permite disparar el workflow manualmente desde la UI de GitHub Actions
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest # Usar una máquina virtual Ubuntu
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4 # Acción para descargar tu código
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4 # Acción para configurar Java (necesario para Gradle y keytool)
+        with:
+          java-version: '17'
+          distribution: 'temurin' # O 'adopt', etc.
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4 # Acción para configurar Node.js (para npm y Capacitor)
+        with:
+          node-version: '20' # Usa una versión LTS de Node.js
+
+      - name: Install npm dependencies
+        run: npm install # Instala dependencias de package.json (Capacitor CLI, etc.)
+
+      - name: Sync Capacitor Android project
+        run: npx cap sync android # Sincroniza los assets web con la plataforma Android
+
+      - name: Decode Keystore and Setup Keystore File
+        # Este paso decodifica el keystore desde el secret de GitHub y lo guarda como un archivo
+        # para que Gradle pueda usarlo.
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          echo "Decoding Keystore..."
+          mkdir -p android/app # Asegurar que la carpeta exista
+          echo $ANDROID_KEYSTORE_BASE64 | base64 --decode > android/app/release-keystore.jks
+          echo "Keystore decoded to android/app/release-keystore.jks"
+
+      - name: Build Android Release App Bundle
+        # Navega a la carpeta android y ejecuta el comando de Gradle para construir el AAB
+        # Pasa las credenciales del keystore como variables de entorno a Gradle
+        env:
+          ANDROID_KEYSTORE_FILE: "release-keystore.jks" # Nombre del archivo keystore dentro de android/app/
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        working-directory: ./android # Ejecutar el siguiente comando desde la carpeta 'android'
+        run: ./gradlew bundleRelease # Construye el AAB firmado
+
+      - name: Upload Release AAB as Artifact
+        # Sube el AAB generado como un artefacto de esta ejecución del workflow
+        # para que puedas descargarlo desde GitHub Actions.
+        uses: actions/upload-artifact@v4
+        with:
+          name: zodiac-gym-app-release-aab # Nombre del artefacto
+          path: android/app/build/outputs/bundle/release/app-release.aab # Ruta al AAB
+          retention-days: 7 # Cuántos días mantener el artefacto (opcional)
