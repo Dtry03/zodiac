@@ -11,15 +11,43 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
-             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
-             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
-            ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+
+    // --- AÑADE ESTO AQUÍ ---
+    signingConfigs {
+        release {
+            // Intenta leer desde variables de entorno (para CI/CD)
+            // o desde keystore.properties (para builds locales si lo tienes)
+            if (System.getenv("ANDROID_KEYSTORE_FILE") != null) {
+                storeFile file(System.getenv("ANDROID_KEYSTORE_FILE")) // En CI/CD, este será el nombre del archivo decodificado, ej: "release-keystore.jks"
+                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+            } else if (project.hasProperty('keystorePropertiesFile')) {
+                // Fallback a keystore.properties para builds locales
+                // Necesitarías crear android/keystore.properties con los datos de tu keystore
+                // y en android/gradle.properties añadir: keystorePropertiesFile=keystore.properties
+                def propsFile = file(project.keystorePropertiesFile)
+                if (propsFile.exists()) {
+                    def props = new Properties()
+                    props.load(new FileInputStream(propsFile))
+                    storeFile file(props['storeFile']) // Ej: props.load(new FileInputStream(file('../app/release-keystore.jks')))
+                    storePassword props['storePassword']
+                    keyAlias props['keyAlias']
+                    keyPassword props['keyPassword']
+                }
+            }
+        }
+    }
+    // --- FIN DE LO AÑADIDO ---
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled false // Puedes cambiarlo a true para optimizar el tamaño, pero prueba bien
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release // <-- ASEGÚRATE QUE ESTA LÍNEA SE AÑADA O MODIFIQUE
         }
     }
 }
