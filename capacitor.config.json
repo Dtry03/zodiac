@@ -3,7 +3,7 @@
   "appName": "Zodiac Gym App",
   "webDir": "public",
   "server": {
-    "url": "http://159.223.227.22",
+    "url": "https://zodiacgym.space/",
     "cleartext": true
   },
   "plugins": {
