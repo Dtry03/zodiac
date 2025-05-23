@@ -1,9 +1,9 @@
 {
-  "appId": "com.zodiacgym.app",
-  "appName": "Zodiac Gym App",
+  "appId": "elite.zodiacgym.app",
+  "appName": "Elite Gym App",
   "webDir": "public",
   "server": {
-    "url": "https://zodiacgym.space/",
+    "url": "https://elite.zodiacgym.space/",
     "cleartext": true
   },
   "plugins": {
